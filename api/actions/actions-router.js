@@ -38,32 +38,24 @@ router.get('/:id', validateActionId, async (req, res) => {
 })
 
 router.post('/', validateAction, (req, res, next) => {
-    Action.insert({
-        notes: req.notes,
-        description: req.description,
-        project_id: req.project_id 
-    })
-    .then(newAction => {
-        res.status(201).json(newAction)
-    })
-    .catch(next)
+    Action.insert(req.body)
+        .then(newAction => {
+            res.status(201).json(newAction)
+        })
+        .catch(next)
 });
 
 router.put('/:id', validateActionId, validateAction, (req, res, next) => {
-    Action.update(req.params.id, {
-         notes: req.notes,
-         description: req.description,
-         project_id: req.project_id,
-         completed: req.completed
-         })
-    .then(() => {
-      return Action.get(req.params.id)
-    })
-    .then(user => {
-      res.json(user)
-    })
-      .catch(next)
-   });
+    Action.update(req.params.id, req.body)
+        .then(() => {
+            return Action.get(req.params.id)
+        })
+        .then(action => {
+            res.json(action)
+        })
+        .catch(next)
+    });
+ 
 
 router.delete('/:id', validateActionId, async (req, res, next) => {
     try {

@@ -30,21 +30,19 @@ async function validateProjectId(req, res, next) {
 
 function validateProject(req, res, next) {
   // DO YOUR MAGIC
-  let { name, description, completed } = req;
-  if (!name || !name.trim() &&
-   !description || !description.trim() &&
-   !completed || !completed.trim()) {
-    res.status(400).json({
-      message: 'missing required fields',
-    })
+  console.log('req body ', req.body);
+  const { name, description, completed } = req.body
+  if (!name || !description || !completed ) {
+      res.status(400).json({
+          message: "missing fields"
+      })
   } else {
-    name = name.trim()
-    description = description.trim()
-    completed = completed.trim()
-    next()
+      req.name
+      req.description
+      req.completed
+      next()
   }
 }
-
 
 
   module.exports ={

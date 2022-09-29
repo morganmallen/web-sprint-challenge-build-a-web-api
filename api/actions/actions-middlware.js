@@ -21,19 +21,17 @@ async function validateActionId(req, res, next) {
 
 function validateAction(req, res, next) {
     // DO YOUR MAGIC
-    let { notes, description, project_id, completed } = req;
-    if (!notes || !notes.trim() &&
-     !description || !description.trim() &&
-      !project_id || !project_id.trim() &&
-      !completed) {
-      res.status(400).json({
-        message: "missing fields",
-      })
+    console.log('req body, ', req.body)
+   const { notes, description, project_id } = req.body
+   if (!notes || !description || !project_id ) {
+        res.status(400).json({
+            message: 'missing fields'
+        })
     } else {
-      notes = notes.trim()
-      description = description.trim()
-      project_id = project_id.trim()
-      next()
+        req.notes
+        req.description
+        req.project_id
+        next()
     }
   }
 
