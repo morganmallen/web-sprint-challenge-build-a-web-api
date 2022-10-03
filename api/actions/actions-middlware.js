@@ -28,9 +28,6 @@ function validateAction(req, res, next) {
             message: 'missing fields'
         })
     } else {
-        req.notes
-        req.description
-        req.project_id
         next()
     }
   }
